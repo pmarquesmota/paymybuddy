@@ -6,6 +6,7 @@ import org.hibernate.annotations.Type;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import java.math.BigDecimal;
 
 @Entity
@@ -20,5 +21,5 @@ public class Application {
 
     @Column(precision = 10, scale = 2)
     @Type(type = "big_decimal")
-    BigDecimal montant;
+    Double montant;
 }

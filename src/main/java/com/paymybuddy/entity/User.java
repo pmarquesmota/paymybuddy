@@ -3,6 +3,8 @@ package com.paymybuddy.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.List;
 
 @Entity
@@ -24,8 +26,11 @@ public class User {
     @Column
     String iban;
 
+    @Column(columnDefinition = "Decimal(10,2)")
+    Double solde;
+
     @JoinTable(
-            name = "User_to_usaer",
+            name = "User_to_user",
             joinColumns = @JoinColumn(name = "user"),
             inverseJoinColumns = @JoinColumn(name = "ami"))
     @ManyToMany

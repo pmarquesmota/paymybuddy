@@ -5,6 +5,7 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.math.BigDecimal;
 
@@ -15,6 +16,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TransactionExterne {
+    @GeneratedValue
     @Id
     private Long id;
 
@@ -23,7 +25,7 @@ public class TransactionExterne {
 
     @Column(precision = 10, scale = 2)
     @Type(type = "big_decimal")
-    BigDecimal montant;
+    Double montant;
 
     @Column
     User user;

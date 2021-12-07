@@ -20,7 +20,7 @@ public class TransactionInterne {
 
     @Column(precision = 10, scale = 2)
     @Type(type = "big_decimal")
-    BigDecimal amount;
+    Double montant;
 
     @Column
     User crediteur;
@@ -30,5 +30,5 @@ public class TransactionInterne {
 
     @Column(precision = 10, scale = 2)
     @Type(type = "big_decimal")
-    BigDecimal commission;
+    Double commission;
 }
