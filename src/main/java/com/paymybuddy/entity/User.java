@@ -14,6 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
 
@@ -35,4 +36,11 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "ami"))
     @ManyToMany
     List<User> amis;
+
+    public User(String name, String password, String iban, Double solde) {
+        this.name = name;
+        this.password = password;
+        this.iban = iban;
+        this.solde = solde;
+    }
 }

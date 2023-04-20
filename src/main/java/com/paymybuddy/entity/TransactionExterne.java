@@ -3,10 +3,7 @@ package com.paymybuddy.entity;
 import lombok.*;
 import org.hibernate.annotations.Type;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
@@ -27,6 +24,7 @@ public class TransactionExterne {
     @Type(type = "big_decimal")
     Double montant;
 
-    @Column
+    @JoinColumn
+    @OneToOne(cascade = CascadeType.ALL)
     User user;
 }

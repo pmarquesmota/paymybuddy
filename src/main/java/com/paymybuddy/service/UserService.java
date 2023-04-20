@@ -36,4 +36,11 @@ public class UserService {
         }
     }
 
+    public void createUser(User user) {
+        User thisUser = userRepository.getUserByUsername(user.getName());
+        if (thisUser == null) {
+            userRepository.save(user);
+        }
+    }
+
 }
