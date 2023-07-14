@@ -30,7 +30,7 @@ public class AmisService {
         return u.getAmis();
     }
 
-    public void updateAmi(Long user, Long ancienAmi, Long nouvelAmi){
+    public User updateAmi(Long user, Long ancienAmi, Long nouvelAmi){
         User u = userRepository.findById(user).orElseThrow(() ->
                 new NoSuchElementException("L'utilisateur " + user + " n'existe pas"));
         User a = userRepository.findById(ancienAmi).orElseThrow(() ->
@@ -41,6 +41,8 @@ public class AmisService {
         u.getAmis().remove(a);
         u.getAmis().add(n);
         userRepository.save(u);
+
+        return u;
     }
 
     public void deleteAmi(Long user, Long ami){
