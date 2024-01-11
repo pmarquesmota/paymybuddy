@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.beans.Transient;
+import java.math.BigDecimal;
 import java.util.NoSuchElementException;
 
 @Service
@@ -20,10 +21,10 @@ public class TransactionExterneService {
     private TransactionExterneRepository transactionExterneRepository;
 
     @Transactional
-    void credit(Long userid, Double montant){
+    public void credit(Long userid, BigDecimal montant) throws Exception,NoSuchElementException {
         User u = userRepository.findById(userid).orElseThrow(() ->
                 new NoSuchElementException("L'utilisateur " + userid + " n'existe pas"));
-        u.setSolde(u.getSolde()+montant);
+        u.setSolde(u.getSolde().add(montant));
         userRepository.save(u);
 
         TransactionExterne t = new TransactionExterne();
@@ -34,11 +35,11 @@ public class TransactionExterneService {
     }
 
     @Transactional
-    public void debit(Long userid, Double montant) throws Exception {
+    public void debit(Long userid, BigDecimal montant) throws Exception,NoSuchElementException {
         User u = userRepository.findById(userid).orElseThrow(() ->
                 new NoSuchElementException("L'utilisateur " + userid + " n'existe pas"));
-        if(u.getSolde() > montant) {
-            u.setSolde(u.getSolde() - montant);
+        if(u.getSolde().compareTo(montant) > 0) {
+            u.setSolde(u.getSolde().subtract(montant));
             userRepository.save(u);
         } else {
             throw new Exception("L'utilisateur " + userid + "n'a pas assez d'argent");
