@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
@@ -83,5 +84,33 @@ public class AmisServiceTest {
 
         assertThrows(NoSuchElementException.class, () -> amisService.listAmis(42L));
     }
+
+    @Test
+    public void addAmis_shouldReturnOK(){
+        List<User> amis = new ArrayList<>();
+        User ami = new User();
+
+        when(userRepository.findById(anyLong())).thenReturn(Optional.of(ami));
+        Mockito
+                .doNothing()
+                .when(userRepository)
+                .save(any());
+        when(user.getAmis()).thenReturn(amis);
+
+        User staticAmi = new User();
+        amis.add(ami);
+        staticAmi.setAmis(amis);
+
+        User ami_to_compare = amisService.addAmis(42L, 69L);
+        assertEquals(staticAmi, ami_to_compare);
+    }
+
+    @Test
+    public void addAmis_shouldReturnNotOK(){
+        doThrow(new NoSuchElementException()).when(userRepository).findById(anyLong());
+
+        assertThrows(NoSuchElementException.class, () -> amisService.addAmis(42L, 69L));
+    }
+
 
 }

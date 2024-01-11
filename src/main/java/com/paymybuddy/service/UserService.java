@@ -17,9 +17,13 @@ public class UserService {
         return userRepository.save(u);
     }
 
-    public User listUser(Long id)  {
+    public User getUser(Long id)  {
         return userRepository.findById(id).orElseThrow(() ->
                 new NoSuchElementException("L'utilisateur " + id + " n'existe pas"));
+    }
+
+    public List<User> getUsers()  {
+        return userRepository.findAll();
     }
 
     public User updateUser(User u){
@@ -33,13 +37,6 @@ public class UserService {
             userRepository.deleteById(id);
         } else {
             throw new NoSuchElementException("L'utilisateur " + id + " n'existe pas");
-        }
-    }
-
-    public void createUser(User user) {
-        User thisUser = userRepository.getUserByUsername(user.getName());
-        if (thisUser == null) {
-            userRepository.save(user);
         }
     }
 

@@ -18,7 +18,7 @@ public class TransactionInterne {
 
     @Column(precision = 10, scale = 2)
     @Type(type = "big_decimal")
-    Double montant;
+    BigDecimal montant;
 
     @JoinColumn
     @OneToOne(cascade = CascadeType.ALL)
@@ -30,5 +30,5 @@ public class TransactionInterne {
 
     @Column(precision = 10, scale = 2)
     @Type(type = "big_decimal")
-    Double commission;
+    BigDecimal commission;
 }

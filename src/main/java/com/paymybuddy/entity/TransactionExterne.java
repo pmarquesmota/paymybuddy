@@ -22,7 +22,7 @@ public class TransactionExterne {
 
     @Column(precision = 10, scale = 2)
     @Type(type = "big_decimal")
-    Double montant;
+    BigDecimal montant;
 
     @JoinColumn
     @OneToOne(cascade = CascadeType.ALL)

@@ -30,19 +30,30 @@ public class AmisService {
         return u.getAmis();
     }
 
-    public User updateAmi(Long user, Long ancienAmi, Long nouvelAmi){
-        User u = userRepository.findById(user).orElseThrow(() ->
-                new NoSuchElementException("L'utilisateur " + user + " n'existe pas"));
-        User a = userRepository.findById(ancienAmi).orElseThrow(() ->
-                new NoSuchElementException("L'ami " + ancienAmi + " n'existe pas"));
-        User n = userRepository.findById(nouvelAmi).orElseThrow(() ->
-                new NoSuchElementException("L'utilisateur " + nouvelAmi + " n'existe pas"));
+    public User addAmis(Long id, Long amiId)  {
+        User user = userRepository.findById(id).orElseThrow(() ->
+                new NoSuchElementException("L'utilisateur ' " + id + " n'existe pas"));
+        User userFriend = userRepository.findById(amiId).orElseThrow(() ->
+                new NoSuchElementException("L'ami ' " + amiId + " n'existe pas"));
+        user.getAmis().add(userFriend);
 
-        u.getAmis().remove(a);
-        u.getAmis().add(n);
-        userRepository.save(u);
+        userRepository.save(user);
+        return user;
+    }
 
-        return u;
+    public User updateAmi(Long utilisateur, Long ancienAmi, Long nouvelAmi){
+        User friend = userRepository.findById(utilisateur).orElseThrow(() ->
+                new NoSuchElementException("L'utilisateur " + utilisateur + " n'existe pas"));
+        User oldFriend = userRepository.findById(ancienAmi).orElseThrow(() ->
+                new NoSuchElementException("L'ancien ami " + ancienAmi + " n'existe pas"));
+        User newFriend = userRepository.findById(nouvelAmi).orElseThrow(() ->
+                new NoSuchElementException("Le nouvel ami " + nouvelAmi + " n'existe pas"));
+
+        friend.getAmis().remove(oldFriend);
+        friend.getAmis().add(newFriend);
+        userRepository.save(friend);
+
+        return friend;
     }
 
     public void deleteAmi(Long user, Long ami){
@@ -54,4 +65,5 @@ public class AmisService {
 
         userRepository.save(u);
     }
+
 }
